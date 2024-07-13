@@ -13,6 +13,7 @@ import { handleEdit, handleDelete } from '../services/dashboardServices'
 
 const { Content } = Layout;
 
+
 const ContentDashboard = () => {
     const [pagination, setPagination] = useState<TablePaginationConfig>({
         current: 1,
@@ -55,46 +56,46 @@ const ContentDashboard = () => {
         {
             title: 'Ação',
             key: 'action',
-            render: (_, record) => (
+            render: (student, record) => (
                 <Space size="middle">
-                    <div onClick={() => handleEdit()}>Editar</div>
-                    <div onClick={() => handleDelete()}>Excluir</div>
-                </Space>
+                    <div onClick={() => handleEdit(student)}>Editar</div>
+                    <div onClick={() => handleDelete(student.id)}>Excluir</div>
+                </Space >
             ),
         },
     ];
 
-    const data: DataType[] = [
-        {
-            key: String(1),
-            name: 'lucas',
-            gender: 'Masculino',
-            dateBirth: '08/08/1998',
-            phone: '(11) 94384-4378',
-            email: 'lucas@email.com',
-        }
-    ];
+const data: DataType[] = [
+    {
+        key: String(1),
+        name: 'lucas',
+        gender: 'Masculino',
+        dateBirth: '08/08/1998',
+        phone: '(11) 94384-4378',
+        email: 'lucas@email.com',
+    }
+];
 
-    return (
-        <Layout>
-            <Content style={contentStyle}>
-                <HeaderComponent />
+return (
+    <Layout>
+        <Content style={contentStyle}>
+            <HeaderComponent />
 
-                <Content style={mainTitleStyle}>
-                    <h1>Estudantes</h1>
-                    <Button icon={<PlusOutlined />} type="primary">Estudante</Button>
-                </Content>
-
-                <Table
-                    columns={columns}
-                    dataSource={data}
-                    pagination={pagination}
-                    onChange={handleTableChange}
-                    style={tableStyle}
-                />
+            <Content style={mainTitleStyle}>
+                <h1>Estudantes</h1>
+                <Button icon={<PlusOutlined />} type="primary">Estudante</Button>
             </Content>
-        </Layout>
-    );
+
+            <Table
+                columns={columns}
+                dataSource={data}
+                pagination={pagination}
+                onChange={handleTableChange}
+                style={tableStyle}
+            />
+        </Content>
+    </Layout>
+);
 };
 
 export default ContentDashboard;

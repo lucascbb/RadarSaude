@@ -1,9 +1,10 @@
+import { DataType } from '../interfaces/dashboardInterfaces'
 
-const handleEdit = () => {
+const handleEdit = (student: DataType) => {
 
 }
 
-const handleDelete = () => {
+const handleDelete = (id: string) => {
 
 }
 
