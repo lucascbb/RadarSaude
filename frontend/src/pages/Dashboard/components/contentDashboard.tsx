@@ -1,21 +1,17 @@
-import { Layout, Table, Space } from 'antd';
-import HeaderComponent from "../../../components/headerComponent";
-import type { TableProps } from 'antd';
-import type { ColumnsType, TablePaginationConfig } from 'antd/es/table/interface';
+import { PlusOutlined } from '@ant-design/icons'
+import { Layout, Table, Space, Button, TableProps } from 'antd';
 import { useState } from 'react';
+
+import type { ColumnsType, TablePaginationConfig } from 'antd/es/table/interface';
+import { DataType } from './interfaces';
+
+import { contentStyle, mainTitleStyle, tableStyle } from "../styles/dashboardStyles"
+
+import HeaderComponent from "../../../components/headerComponent";
 
 const { Content } = Layout;
 
 const ContentDashboard = () => {
-    interface DataType {
-        key: string;
-        name: string;
-        gender: string;
-        dateBirth: string;
-        phone: string;
-        email: string;
-    }
-
     const [pagination, setPagination] = useState<TablePaginationConfig>({
         current: 1,
         pageSize: 10,
@@ -68,34 +64,16 @@ const ContentDashboard = () => {
 
     const data: DataType[] = [];
 
-    for (let i = 0; i < 100; i++) {
-        data.push({
-            key: String(i),
-            name: 'Jane Doe',
-            gender: 'Female',
-            dateBirth: `19${i}-01-01`,
-            phone: `(11) 941328-90${i}`,
-            email: 'jane.doe@example.com',
-        });
-    }
-
-    const contentStyle: React.CSSProperties = {
-        maxHeight: "100vh",
-        color: '#fff',
-        backgroundColor: '#fffaff',
-        overflowY: "auto",
-    };
-
-    const tableStyle: React.CSSProperties = {
-        margin: "0 auto",
-        width: '100%',
-        padding: '40px',
-    };
-
     return (
         <Layout>
             <Content style={contentStyle}>
                 <HeaderComponent />
+
+                <Content style={mainTitleStyle}>
+                    <h1>Estudantes</h1>
+                    <Button icon={<PlusOutlined />} type="primary">Estudante</Button>
+                </Content>
+
                 <Table
                     columns={columns}
                     dataSource={data}
