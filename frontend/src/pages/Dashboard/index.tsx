@@ -1,17 +1,8 @@
 import { Layout } from 'antd';
-import SiderComponent from "../../components/sider";
-
-const { Footer, Content } = Layout;
+import SiderComponent from "../../components/siderComponent";
+import ContentDashboard from './components/contentDashboard';
 
 const Dashboard = () => {
-    const contentStyle: React.CSSProperties = {
-        textAlign: 'center',
-        minHeight: 120,
-        lineHeight: '120px',
-        color: '#fff',
-        backgroundColor: '#fffaff',
-    };
-
     // const footerStyle: React.CSSProperties = {
     //     textAlign: 'center',
     //     color: '#fff',
@@ -30,7 +21,7 @@ const Dashboard = () => {
             <SiderComponent />
 
             <Layout>
-                <Content style={contentStyle}>Content</Content>
+                <ContentDashboard />
                 {/* <Footer style={footerStyle}>Footer</Footer> */}
             </Layout>
         </Layout>

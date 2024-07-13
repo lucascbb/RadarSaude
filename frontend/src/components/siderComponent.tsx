@@ -6,7 +6,6 @@ import iconUsers from "../../src/images/svg/iconUsers.svg"
 import iconLogout from "../../src/images/svg/iconLogout.svg"
 
 
-
 const { Sider } = Layout;
 
 const SiderComponent = () => {
@@ -14,7 +13,6 @@ const SiderComponent = () => {
         textAlign: "center",
         backgroundColor: '#000039',
         borderEndEndRadius: '20px',
-        borderStartEndRadius: '20px',
         boxShadow: '1px 1px 8px #000019'
     };
 

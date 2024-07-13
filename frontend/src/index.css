@@ -39,11 +39,11 @@ html {
   src: url(./fonts/Comfortaa/Comfortaa-Bold.ttf);
 }
 
-/* .threePoints_Text {
+.threePoints_Text {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-} */
+}
 
 .threePoints_Paragraph {
   display: -webkit-box;
