@@ -3,7 +3,7 @@ import { Layout, Table, Space, Button, TableProps } from 'antd';
 import { useState } from 'react';
 
 import type { ColumnsType, TablePaginationConfig } from 'antd/es/table/interface';
-import { DataType } from './interfaces';
+import { DataType } from '../interfaces/interfaces';
 
 import { contentStyle, mainTitleStyle, tableStyle } from "../styles/dashboardStyles"
 
