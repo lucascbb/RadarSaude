@@ -3,11 +3,13 @@ import { Layout, Table, Space, Button, TableProps } from 'antd';
 import { useState } from 'react';
 
 import type { ColumnsType, TablePaginationConfig } from 'antd/es/table/interface';
-import { DataType } from '../interfaces/interfaces';
+import { DataType } from '../interfaces/dashboardInterfaces';
 
 import { contentStyle, mainTitleStyle, tableStyle } from "../styles/dashboardStyles"
 
 import HeaderComponent from "../../../components/headerComponent";
+
+import { handleEdit, handleDelete } from '../services/dashboardServices'
 
 const { Content } = Layout;
 
@@ -55,14 +57,23 @@ const ContentDashboard = () => {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <a>Editar</a>
-                    <a>Excluir</a>
+                    <div onClick={() => handleEdit()}>Editar</div>
+                    <div onClick={() => handleDelete()}>Excluir</div>
                 </Space>
             ),
         },
     ];
 
-    const data: DataType[] = [];
+    const data: DataType[] = [
+        {
+            key: String(1),
+            name: 'lucas',
+            gender: 'Masculino',
+            dateBirth: '08/08/1998',
+            phone: '(11) 94384-4378',
+            email: 'lucas@email.com',
+        }
+    ];
 
     return (
         <Layout>
