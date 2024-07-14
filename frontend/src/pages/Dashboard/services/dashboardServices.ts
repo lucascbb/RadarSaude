@@ -1,6 +1,7 @@
 import { DataType } from '../interfaces/dashboardInterfaces'
+import api from '../../../api';
 
-const handleGet = () => {
+const handleGet = async () => {
     try {
 
     } catch (error) {

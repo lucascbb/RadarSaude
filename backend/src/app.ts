@@ -2,6 +2,7 @@ import express, { Express } from 'express';
 import cors from 'cors';
 import compression from 'compression';
 import routes from '../src/app/routes/routes';
+require("./sequelize");
 
 class App {
     server: Express;

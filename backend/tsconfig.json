@@ -1,8 +1,15 @@
 {
     "compilerOptions": {
-        "esModuleInterop": true,
-        "module": "commonjs",
-        "target": "es5",
-        "sourceMap": true
-    }
-}
+      "target": "ES2018",
+      "module": "CommonJS",
+      "outDir": "./dist",
+      "strict": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "moduleResolution": "node"
+    },
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules"]
+  }
+  

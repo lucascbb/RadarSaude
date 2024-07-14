@@ -1,10 +1,7 @@
-require("dotenv").config();
+import app from './app';
 
-const http = require("http");
-const app = require("./app");
-const server = http.createServer(app);
+const port = process.env.SERVER_PORT || 8080;
 
-server.listen(process.env.SERVER_PORT || 8080, () => {
-    console.log(`Servidor executando na porta ${process.env.SERVER_PORT || 8080}`);
+app.listen(port, () => {
+    console.log(`Servidor executando na porta ${port}`);
 });
-
