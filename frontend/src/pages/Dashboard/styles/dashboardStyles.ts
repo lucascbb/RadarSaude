@@ -18,4 +18,26 @@ const tableStyle: React.CSSProperties = {
     padding: '10px 40px',
 };
 
-export { contentStyle, mainTitleStyle, tableStyle }
+const confirmTextStyle: React.CSSProperties = {
+    width: '350px',
+    height: "60px",
+    whiteSpace: 'pre-wrap'
+}
+
+const iconBtnDeleteStyle: React.CSSProperties = {
+    fontSize: "24px",
+    lineHeight: 0,
+    textDecoration: 'underline',
+    color: "red",
+    cursor: "pointer"
+}
+
+const iconBtnEditStyle: React.CSSProperties = {
+    fontSize: "24px",
+    lineHeight: 0,
+    textDecoration: 'underline',
+    color: "#0c0668",
+    cursor: "pointer"
+}
+
+export { contentStyle, mainTitleStyle, tableStyle, confirmTextStyle, iconBtnDeleteStyle, iconBtnEditStyle }
