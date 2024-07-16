@@ -42,7 +42,7 @@ class PersonService {
                 order: [
                     ['createdAt', 'DESC']
                 ],
-                offset: ((Number(page) - 1) * 10),
+                offset: ((Number(page ? page : 1) - 1) * 10),
                 limit: 10
             });
 
