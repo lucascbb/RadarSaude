@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
-import { Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space } from 'antd';
+import { Button, DatePicker, Drawer, Form, Input, Select } from 'antd';
 import moment from 'moment';
-import { DataType } from '../interfaces/dashboardInterfaces';
 import dayjs from 'dayjs';
+import { DataType } from '../interfaces/dashboardInterfaces';
 
 import { handleCreate, handleEdit } from '../services/dashboardServices';
 import { GlobalContext } from '../../../context/GlobalContex';
@@ -12,14 +12,20 @@ const { Option } = Select;
 const DrawerDashboard = ({ openDrawer, setOpenDrawerEdit, selectUser }: { openDrawer: boolean, setOpenDrawerEdit: () => void, selectUser: DataType | undefined }) => {
     const [form] = Form.useForm();
 
+    const mainLabelStyle: React.CSSProperties = {
+        display: "flex",
+        width: "100%",
+        flexDirection: "column",
+        height: "90px",
+        marginBottom: "10px"
+    }
+
     const context = useContext(GlobalContext);
     if (!context) throw new Error("useContext must be used within a GlobalContextProvider");
-
     const { setUsersUpdate } = context;
 
-    const onFinish = (values: any) => {
+    const onFinish = async (values: DataType) => {
         selectUser ? handleEdit(values, selectUser.id) : handleCreate(values);
-
         resetAndCloseForm();
         setUsersUpdate((prevState: boolean) => !prevState);
     };
@@ -27,7 +33,7 @@ const DrawerDashboard = ({ openDrawer, setOpenDrawerEdit, selectUser }: { openDr
     const resetAndCloseForm = () => {
         form.resetFields();
         setOpenDrawerEdit();
-    };   
+    };
 
     useEffect(() => {
         if (selectUser) {
@@ -38,9 +44,9 @@ const DrawerDashboard = ({ openDrawer, setOpenDrawerEdit, selectUser }: { openDr
                 email: selectUser.email,
                 dateBirth: selectUser.birthDate ? dayjs(moment(selectUser.birthDate).format('DD/MM/YYYY'), 'DD/MM/YYYY') : '',
             });
-        }
 
-    }, [selectUser]);
+        }
+    }, [selectUser, form, openDrawer]);
 
     return (
         <Drawer
@@ -53,106 +59,94 @@ const DrawerDashboard = ({ openDrawer, setOpenDrawerEdit, selectUser }: { openDr
                     padding: "30px 20px",
                 }
             }}
-            extra={
-                <Space>
+        >
+            <Form
+                name="basic"
+                form={form}
+                validateTrigger={['onChange', 'onSubmit']}
+                onFinish={onFinish}
+                autoComplete="off"
+                style={{ display: "flex", flexDirection: "column" }}
+                layout="vertical"
+                scrollToFirstError
+            >
+                <Form.Item
+                    name="name"
+                    label="Nome"
+                    rules={[{ required: true, message: 'Insira o nome' }]}
+                    style={mainLabelStyle}
+                >
+                    <Input placeholder="Insira o nome" size='large' />
+                </Form.Item>
+
+                <Form.Item
+                    name="gender"
+                    label="Sexo"
+                    rules={[{ required: true, message: 'Insira o sexo' }]}
+                    style={mainLabelStyle}
+                >
+                    <Select placeholder="Insira o sexo" size='large'>
+                        <Option value="Male">Masculino</Option>
+                        <Option value="Female">Feminino</Option>
+                        <Option value="Other">Outro</Option>
+                    </Select>
+                </Form.Item>
+
+                <Form.Item
+                    name="dateBirth"
+                    label="Data de nascimento"
+                    rules={[{ required: true, message: 'Insira data de nascimento' }]}
+                    style={mainLabelStyle}
+                >
+                    <DatePicker maxDate={dayjs(moment(new Date()).format('DD/MM/YYYY'), 'DD/MM/YYYY')} placeholder='Selecione a data' format="DD/MM/YYYY" style={{ width: "100%" }} size='large' />
+                </Form.Item>
+
+                <Form.Item
+                    name="phone"
+                    label="Telefone"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Insira o telefone'
+                        },
+                        {
+                            pattern: /^[0-9]{2}9[0-9]{8}$/,
+                            message: 'Insira um telefone celular válido no formato 99999999999',
+                        },
+                    ]}
+                    style={mainLabelStyle}
+                >
+                    <Input placeholder="Insira o telefone" size='large' type='tel' />
+                </Form.Item>
+
+                <Form.Item
+                    name="email"
+                    label="E-mail"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Insira o e-mail'
+                        },
+                        {
+                            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                            message: 'Por favor, insira um e-mail válido',
+                        },
+                    ]}
+                    style={mainLabelStyle}
+                >
+                    <Input placeholder="Insira o e-mail" size='large' />
+                </Form.Item>
+
+                <Form.Item style={{ display: "flex", gap: "20px" }}>
                     <Button onClick={resetAndCloseForm} type='default'>
                         Cancelar
                     </Button>
-                    <Button type="primary" htmlType="submit" onClick={() => form.submit()}>
-                        Confirmar
+                    <Button type="primary" htmlType="submit">
+                        Submit
                     </Button>
-                </Space>
-            }
-        >
-            <Form
-                form={form}
-                name="my_form"
-                onFinish={onFinish}
-                layout="vertical"
-            >
-                <Row gutter={16}>
-                    <Col span={24}>
-                        <Form.Item
-                            name="name"
-                            label="Nome"
-                            rules={[{ required: true, message: 'Insira o nome' }]}
-                        >
-                            <Input placeholder="Insira o nome" size='large' />
-                        </Form.Item>
-                    </Col>
-                </Row>
-
-                <Row gutter={16}>
-                    <Col span={24}>
-                        <Form.Item
-                            name="gender"
-                            label="Sexo"
-                            rules={[{ required: true, message: 'Insira o sexo' }]}
-                        >
-                            <Select placeholder="Insira o sexo" size='large'>
-                                <Option value="Male">Masculino</Option>
-                                <Option value="Female">Feminino</Option>
-                                <Option value="Other">Outro</Option>
-                            </Select>
-                        </Form.Item>
-                    </Col>
-                </Row>
-
-                <Row gutter={16}>
-                    <Col span={24}>
-                        <Form.Item
-                            name="dateBirth"
-                            label="Data de nascimento"
-                            rules={[{ required: true, message: 'Insira data de nascimento' }]}
-                        >
-                            <DatePicker maxDate={dayjs(moment(new Date()).format('DD/MM/YYYY'), 'DD/MM/YYYY')} placeholder='Selecione a data' format="DD/MM/YYYY" style={{ width: "100%" }} size='large' />
-                        </Form.Item>
-                    </Col>
-                </Row>
-
-                <Row gutter={16}>
-                    <Col span={24}>
-                        <Form.Item
-                            name="phone"
-                            label="Telefone"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Insira o telefone'
-                                },
-                                {
-                                    pattern: /^[1-9]{2}9[1-9][0-9]{7}$/,
-                                    message: 'Por favor, insira um número de telefone celular válido no formato (99) 99999-9999',
-                                },
-                            ]}
-                        >
-                            <Input placeholder="Insira o telefone" size='large' />
-                        </Form.Item>
-                    </Col>
-                </Row>
-
-                <Row gutter={16}>
-                    <Col span={24}>
-                        <Form.Item
-                            name="email"
-                            label="E-mail"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Insira o e-mail'
-                                },
-                                {
-                                    pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                                    message: 'Por favor, insira um e-mail válido',
-                                },
-                            ]}
-                        >
-                            <Input placeholder="Insira o e-mail" size='large' />
-                        </Form.Item>
-                    </Col>
-                </Row>
+                </Form.Item>
             </Form>
-        </Drawer>
+        </Drawer >
     );
 };
 

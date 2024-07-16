@@ -49,4 +49,22 @@ const inputStyle: React.CSSProperties = {
     width: "300px"
 }
 
-export { contentStyle, mainTitleStyle, tableStyle, confirmTextStyle, iconBtnDeleteStyle, iconBtnEditStyle, inputStyle, mainSearchStyle }
+const searchRemoveStyle: React.CSSProperties = {
+    display: "flex",
+    gap: '10px',
+    height: "30px",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: "20px",
+    padding: "0 6px",
+    border: "1px solid grey",
+    cursor: "pointer"
+}
+
+const iconRemoveStyle: React.CSSProperties = {
+    fontFamily: "Comfortaa-Bold",
+    fontSize: "18px",
+    color: "#943030"
+}
+
+export { contentStyle, mainTitleStyle, tableStyle, confirmTextStyle, iconBtnDeleteStyle, iconBtnEditStyle, inputStyle, mainSearchStyle, searchRemoveStyle, iconRemoveStyle }
