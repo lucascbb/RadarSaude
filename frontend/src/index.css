@@ -4,27 +4,43 @@ html {
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #e7e7e7;
+  background-color: #fffaff;
+}
+
+* {
   font-family: Comfortaa-Regular;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @font-face {
   font-family: Comfortaa-Light;
   src: url(./fonts/Comfortaa/Comfortaa-Light.ttf);
 }
+
 @font-face {
   font-family: Comfortaa-Regular;
   src: url(./fonts/Comfortaa/Comfortaa-Regular.ttf);
 }
+
 @font-face {
   font-family: Comfortaa-Medium;
   src: url(./fonts/Comfortaa/Comfortaa-Medium.ttf);
 }
+
 @font-face {
   font-family: Comfortaa-SemiBold;
   src: url(./fonts/Comfortaa/Comfortaa-SemiBold.ttf);
 }
+
 @font-face {
   font-family: Comfortaa-Bold;
   src: url(./fonts/Comfortaa/Comfortaa-Bold.ttf);
+}
+
+.threePoints_Text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
