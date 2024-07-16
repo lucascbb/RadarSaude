@@ -1,38 +1,48 @@
 import { DataType } from '../interfaces/dashboardInterfaces'
 import api from '../../../api';
+import { toast } from 'react-toastify';
 
-const handleGet = async () => {
+const handleGet = async (search: string | undefined, page: number | undefined) => {
     try {
+        const { data } = await api.get('/person', {
+            params: {
+                search,
+                page,
+            },
+        });
 
+        return data;
     } catch (error) {
-
+        return toast.error("Erro ao buscar");
     }
 }
 
-const handleCreate = (student: DataType) => {
+const handleCreate = async (user: DataType) => {
     try {
-        console.log(student);
-
+        const { data } = await api.post('/person', user);
+        return toast.success(data.message);
     } catch (error) {
-
+        return toast.error("Erro ao criar");
     }
 }
 
-const handleEdit = (student: DataType) => {
+const handleEdit = async (user: DataType, id: string) => {
     try {
-        console.log(student);
+        user.id = id
+        const { data } = await api.patch('/person', user);
+        return toast.success(data.message);
 
     } catch (error) {
-
+        return toast.error("Erro ao editar");
     }
 }
 
-const handleDelete = (id: string) => {
+const handleDelete = async (id: string) => {
     try {
-        console.log(id);
-
+        const { data } = await api.delete(`/person/${id}`);
+        return toast.success(data.message);
     } catch (error) {
-
+        return toast.error("Erro ao deletar");
     }
 }
 

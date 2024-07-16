@@ -40,4 +40,13 @@ const iconBtnEditStyle: React.CSSProperties = {
     cursor: "pointer"
 }
 
-export { contentStyle, mainTitleStyle, tableStyle, confirmTextStyle, iconBtnDeleteStyle, iconBtnEditStyle }
+const mainSearchStyle: React.CSSProperties = {
+    display: "flex",
+    gap: "20px"
+}
+
+const inputStyle: React.CSSProperties = {
+    width: "300px"
+}
+
+export { contentStyle, mainTitleStyle, tableStyle, confirmTextStyle, iconBtnDeleteStyle, iconBtnEditStyle, inputStyle, mainSearchStyle }

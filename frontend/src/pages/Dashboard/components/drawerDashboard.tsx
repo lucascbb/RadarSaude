@@ -1,35 +1,46 @@
+import React, { useContext, useEffect } from 'react';
 import { Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space } from 'antd';
+import moment from 'moment';
 import { DataType } from '../interfaces/dashboardInterfaces';
-import { useEffect } from 'react';
 import dayjs from 'dayjs';
 
-import { handleCreate, handleEdit } from '../services/dashboardServices'
+import { handleCreate, handleEdit } from '../services/dashboardServices';
+import { GlobalContext } from '../../../context/GlobalContex';
 
 const { Option } = Select;
 
 const DrawerDashboard = ({ openDrawer, setOpenDrawerEdit, selectUser }: { openDrawer: boolean, setOpenDrawerEdit: () => void, selectUser: DataType | undefined }) => {
     const [form] = Form.useForm();
 
+    const context = useContext(GlobalContext);
+    if (!context) throw new Error("useContext must be used within a GlobalContextProvider");
+
+    const { setUsersUpdate } = context;
+
+    const onFinish = (values: any) => {
+        selectUser ? handleEdit(values, selectUser.id) : handleCreate(values);
+
+        resetAndCloseForm();
+        setUsersUpdate((prevState: boolean) => !prevState);
+    };
+
     const resetAndCloseForm = () => {
         form.resetFields();
         setOpenDrawerEdit();
-    };
-
-    const onFinish = (values: DataType) => {
-        selectUser ? handleEdit(values) : handleCreate(values)
-    };
+    };   
 
     useEffect(() => {
         if (selectUser) {
             form.setFieldsValue({
                 name: selectUser.name,
                 gender: selectUser.gender,
-                dateBirth: dayjs(selectUser.dateBirth, 'DD/MM/YYYY'),
                 phone: selectUser.phone,
                 email: selectUser.email,
+                dateBirth: selectUser.birthDate ? dayjs(moment(selectUser.birthDate).format('DD/MM/YYYY'), 'DD/MM/YYYY') : '',
             });
         }
-    }, [selectUser, form]);
+
+    }, [selectUser]);
 
     return (
         <Drawer
@@ -39,11 +50,8 @@ const DrawerDashboard = ({ openDrawer, setOpenDrawerEdit, selectUser }: { openDr
             open={openDrawer}
             styles={{
                 header: {
-                    padding: "30px",
-                },
-                body: {
-                    height: "100px"
-                },
+                    padding: "30px 20px",
+                }
             }}
             extra={
                 <Space>
@@ -82,9 +90,9 @@ const DrawerDashboard = ({ openDrawer, setOpenDrawerEdit, selectUser }: { openDr
                             rules={[{ required: true, message: 'Insira o sexo' }]}
                         >
                             <Select placeholder="Insira o sexo" size='large'>
-                                <Option value="male">Masculino</Option>
-                                <Option value="female">Feminino</Option>
-                                <Option value="other">Outro</Option>
+                                <Option value="Male">Masculino</Option>
+                                <Option value="Female">Feminino</Option>
+                                <Option value="Other">Outro</Option>
                             </Select>
                         </Form.Item>
                     </Col>
@@ -97,7 +105,7 @@ const DrawerDashboard = ({ openDrawer, setOpenDrawerEdit, selectUser }: { openDr
                             label="Data de nascimento"
                             rules={[{ required: true, message: 'Insira data de nascimento' }]}
                         >
-                            <DatePicker placeholder='Selecione a data' format={['DD/MM/YYYY']} style={{ width: "100%" }} size='large' />
+                            <DatePicker maxDate={dayjs(moment(new Date()).format('DD/MM/YYYY'), 'DD/MM/YYYY')} placeholder='Selecione a data' format="DD/MM/YYYY" style={{ width: "100%" }} size='large' />
                         </Form.Item>
                     </Col>
                 </Row>

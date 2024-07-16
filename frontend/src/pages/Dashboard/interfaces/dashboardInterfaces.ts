@@ -1,8 +1,8 @@
 export interface DataType {
-    key: string;
+    id: string;
     name: string;
     gender: string;
-    dateBirth: string;
+    birthDate: string;
     phone: string;
     email: string;
 }
