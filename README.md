@@ -18,6 +18,8 @@ Este projeto é uma aplicação full-stack desenvolvida como parte de um teste t
 
 ## Deploy
 
+#### https://radar-saude.vercel.app/dashboard
+
 - Frontend: Hospedado na Vercel.
 - API e Banco de Dados: Hospedados no Render.
 
@@ -44,11 +46,11 @@ git clone <URL_DO_REPOSITORIO>
 
 ``` 
 Exemplo de .env:
-# DB_HOST=<seu_host>
-# DB_PORT=5432
-# DB_NAME=<nome_do_banco>
-# DB_USER=<seu_usuario>
-# DB_PASSWORD=<sua_senha>
+DB_HOST=<seu_host>
+DB_PORT=5432
+DB_NAME=<nome_do_banco>
+DB_USER=<seu_usuario>
+DB_PASSWORD=<sua_senha>
 ```
 
 #### Script para instalação do Backend
@@ -59,12 +61,6 @@ cd backend
 
 ``` 
 npm install
-```
-
-#### Script para criar o banco postgres 
-
-``` 
-npx sequelize-cli db:create
 ```
 
 #### Script para alimentar o banco com seeders e rodar API
