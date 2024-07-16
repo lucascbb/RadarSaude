@@ -26,8 +26,8 @@ const DrawerDashboard = ({ openDrawer, setOpenDrawerEdit, selectUser }: { openDr
 
     const onFinish = async (values: DataType) => {
         selectUser ? handleEdit(values, selectUser.id) : handleCreate(values);
-        resetAndCloseForm();
         setUsersUpdate((prevState: boolean) => !prevState);
+        resetAndCloseForm();
     };
 
     const resetAndCloseForm = () => {
@@ -36,6 +36,8 @@ const DrawerDashboard = ({ openDrawer, setOpenDrawerEdit, selectUser }: { openDr
     };
 
     useEffect(() => {
+        form.resetFields();
+
         if (selectUser) {
             form.setFieldsValue({
                 name: selectUser.name,
@@ -44,7 +46,6 @@ const DrawerDashboard = ({ openDrawer, setOpenDrawerEdit, selectUser }: { openDr
                 email: selectUser.email,
                 dateBirth: selectUser.birthDate ? dayjs(moment(selectUser.birthDate).format('DD/MM/YYYY'), 'DD/MM/YYYY') : '',
             });
-
         }
     }, [selectUser, form, openDrawer]);
 
